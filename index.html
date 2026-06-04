@@ -1,1 +1,744 @@
-Hi.
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="ochreotter - Full Stack Engineer from Japan. PHP, Laravel, Python, Linux, automation, and AI-assisted development workflows.">
+  <title>ochreotter | Full Stack Engineer</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17211f;
+      --muted: #5d6a66;
+      --soft: #eef3ef;
+      --line: #d8e2dc;
+      --paper: #fbfcf9;
+      --panel: #ffffff;
+      --accent: #bd6b2f;
+      --accent-strong: #7c3f1e;
+      --green: #2f6f55;
+      --blue: #386e8b;
+      --shadow: 0 18px 48px rgba(35, 50, 45, .12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 15% 0%, rgba(189, 107, 47, .14), transparent 28rem),
+        linear-gradient(135deg, #fbfcf9 0%, #f5f8f5 44%, #edf4f0 100%);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      min-height: 100vh;
+    }
+
+    .shell {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid rgba(216, 226, 220, .82);
+      background: rgba(251, 252, 249, .84);
+      backdrop-filter: blur(18px);
+    }
+
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 64px;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border: 1px solid rgba(124, 63, 30, .28);
+      border-radius: 8px;
+      background: #fff8f1;
+      color: var(--accent-strong);
+      font-weight: 900;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 650;
+    }
+
+    .nav a {
+      padding: 8px 10px;
+      border-radius: 6px;
+    }
+
+    .nav a:hover,
+    .nav a:focus-visible {
+      background: var(--soft);
+      color: var(--ink);
+      outline: none;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(280px, .75fr);
+      align-items: end;
+      gap: 48px;
+      padding: 86px 0 54px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 16px;
+      color: var(--accent-strong);
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 26px;
+      height: 2px;
+      background: var(--accent);
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      max-width: 780px;
+      margin-bottom: 22px;
+      font-size: clamp(48px, 7vw, 88px);
+      line-height: .96;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      max-width: 760px;
+      margin-bottom: 24px;
+      color: #34423e;
+      font-size: clamp(18px, 2vw, 23px);
+      line-height: 1.5;
+    }
+
+    .hero-copy {
+      max-width: 720px;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 10px 16px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: var(--panel);
+      color: var(--ink);
+      font-weight: 750;
+      box-shadow: 0 8px 18px rgba(35, 50, 45, .06);
+    }
+
+    .button.primary {
+      border-color: var(--accent-strong);
+      background: var(--accent-strong);
+      color: #fff;
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    .status-panel {
+      border: 1px solid rgba(216, 226, 220, .9);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, .74);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .status-row {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 16px;
+      padding: 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .status-row:last-child {
+      border-bottom: 0;
+    }
+
+    .status-icon {
+      display: grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 8px;
+      background: var(--soft);
+      color: var(--green);
+      font-size: 22px;
+    }
+
+    .status-row h2 {
+      margin-bottom: 3px;
+      font-size: 15px;
+    }
+
+    .status-row p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .band {
+      padding: 56px 0;
+      border-top: 1px solid rgba(216, 226, 220, .72);
+    }
+
+    .band.paper {
+      background: rgba(255, 255, 255, .52);
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 28px;
+      margin-bottom: 28px;
+    }
+
+    .section-head h2 {
+      margin-bottom: 0;
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.08;
+    }
+
+    .section-head p {
+      max-width: 500px;
+      margin-bottom: 0;
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .grid.three {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid.four {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .card {
+      height: 100%;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: 0 10px 28px rgba(35, 50, 45, .06);
+    }
+
+    .card h3 {
+      margin-bottom: 12px;
+      font-size: 18px;
+    }
+
+    .list {
+      display: grid;
+      gap: 9px;
+      margin: 0;
+      padding: 0;
+      color: var(--muted);
+      list-style: none;
+      font-size: 15px;
+    }
+
+    .list li {
+      position: relative;
+      padding-left: 18px;
+    }
+
+    .list li::before {
+      content: "";
+      position: absolute;
+      top: .72em;
+      left: 0;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 6px 10px;
+      border: 1px solid rgba(216, 226, 220, .95);
+      border-radius: 6px;
+      background: #f9fbf8;
+      color: #33433f;
+      font-size: 14px;
+      font-weight: 650;
+    }
+
+    .work-card {
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 10px;
+      min-height: 240px;
+      border-top: 4px solid var(--blue);
+    }
+
+    .work-card:nth-child(2) {
+      border-top-color: var(--green);
+    }
+
+    .work-card:nth-child(3) {
+      border-top-color: var(--accent);
+    }
+
+    .philosophy {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .principle {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      color: var(--ink);
+      font-weight: 800;
+      text-align: center;
+    }
+
+    footer {
+      padding: 34px 0 42px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        padding-top: 64px;
+      }
+
+      .grid.three,
+      .grid.four,
+      .philosophy {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .section-head {
+        display: block;
+      }
+
+      .section-head p {
+        margin-top: 10px;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .shell {
+        width: min(100% - 28px, 1120px);
+      }
+
+      .topbar-inner {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 8px;
+        padding: 12px 0;
+      }
+
+      .nav {
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 2px;
+      }
+
+      .nav a {
+        white-space: nowrap;
+      }
+
+      h1 {
+        font-size: 48px;
+      }
+
+      .hero {
+        padding: 46px 0 40px;
+      }
+
+      .grid.three,
+      .grid.four,
+      .philosophy {
+        grid-template-columns: 1fr;
+      }
+
+      .band {
+        padding: 42px 0;
+      }
+
+      .status-row {
+        grid-template-columns: 40px 1fr;
+        gap: 12px;
+        padding: 16px;
+      }
+
+      .status-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 19px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div class="shell topbar-inner">
+        <a class="brand" href="#top" aria-label="ochreotter home">
+          <span class="brand-mark">o</span>
+          <span>ochreotter</span>
+        </a>
+        <nav class="nav" aria-label="Primary navigation">
+          <a href="#experience">Experience</a>
+          <a href="#stack">Tech Stack</a>
+          <a href="#work">Featured Work</a>
+          <a href="#interests">Interests</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="shell hero" aria-labelledby="hero-title">
+        <div>
+          <p class="eyebrow">Full Stack Engineer from Japan</p>
+          <h1 id="hero-title">ochreotter</h1>
+          <p class="lead">Building practical systems with PHP, Laravel, Python, Linux, and AI-assisted development workflows.</p>
+          <p class="hero-copy">Focused on backend architecture, automation, developer productivity, and real-world system operations.</p>
+          <div class="actions" aria-label="Page sections">
+            <a class="button primary" href="#work">View Work</a>
+            <a class="button" href="#stack">Explore Stack</a>
+          </div>
+        </div>
+
+        <aside class="status-panel" aria-label="Current focus">
+          <div class="status-row">
+            <div class="status-icon" aria-hidden="true">AI</div>
+            <div>
+              <h2>Currently working on</h2>
+              <p>AI driven development workflows and backend architecture.</p>
+            </div>
+          </div>
+          <div class="status-row">
+            <div class="status-icon" aria-hidden="true">01</div>
+            <div>
+              <h2>Currently learning</h2>
+              <p>Modern AI coding workflows and automation.</p>
+            </div>
+          </div>
+          <div class="status-row">
+            <div class="status-icon" aria-hidden="true">SQL</div>
+            <div>
+              <h2>Ask me about</h2>
+              <p>PHP, Laravel, Linux, AI coding tools, SQL optimization, and backend development.</p>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <section class="band paper" aria-labelledby="about-title">
+        <div class="shell">
+          <div class="section-head">
+            <h2 id="about-title">Practical Engineering</h2>
+            <p>Interested in scalable system design, developer productivity, and automation that holds up in day-to-day operations.</p>
+          </div>
+          <div class="grid three">
+            <article class="card">
+              <h3>Collaboration</h3>
+              <ul class="list">
+                <li>Developer tools</li>
+                <li>Practical automation projects</li>
+                <li>Maintainable backend systems</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>Focus</h3>
+              <ul class="list">
+                <li>Backend architecture</li>
+                <li>Automation</li>
+                <li>Developer productivity</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>Fun Fact</h3>
+              <p class="hero-copy">I sometimes spend more time optimizing workflows than writing actual code.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="band" id="experience" aria-labelledby="experience-title">
+        <div class="shell">
+          <div class="section-head">
+            <h2 id="experience-title">Experience</h2>
+            <p>From server-side development to client communication, with an emphasis on systems that survive real production use.</p>
+          </div>
+          <div class="grid three">
+            <article class="card">
+              <h3>Backend / Server Side</h3>
+              <ul class="list">
+                <li>Business logic design</li>
+                <li>API integration</li>
+                <li>Batch processing</li>
+                <li>PDF / CSV generation</li>
+                <li>ORM / Query Builder development</li>
+                <li>Migration system development</li>
+                <li>Performance optimization</li>
+                <li>Offline-compatible systems</li>
+                <li>Database design</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>Frontend</h3>
+              <ul class="list">
+                <li>CRUD systems</li>
+                <li>Admin dashboards</li>
+                <li>Inventory systems</li>
+                <li>Portal sites</li>
+                <li>UI/UX improvements</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>Leadership / Management</h3>
+              <ul class="list">
+                <li>Requirement hearing</li>
+                <li>Client communication</li>
+                <li>Task management</li>
+                <li>Code review</li>
+                <li>Team mentoring</li>
+                <li>Technical proposal</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="band paper" id="stack" aria-labelledby="stack-title">
+        <div class="shell">
+          <div class="section-head">
+            <h2 id="stack-title">Tech Stack</h2>
+            <p>Tools and platforms used across backend systems, automation, infrastructure, and delivery workflows.</p>
+          </div>
+          <div class="grid four">
+            <article class="card">
+              <h3>Languages</h3>
+              <ul class="chips">
+                <li class="chip">PHP</li>
+                <li class="chip">Python</li>
+                <li class="chip">JavaScript</li>
+                <li class="chip">SQL</li>
+                <li class="chip">PowerShell</li>
+                <li class="chip">HTML / CSS</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>Backend</h3>
+              <ul class="chips">
+                <li class="chip">Laravel</li>
+                <li class="chip">Symfony</li>
+                <li class="chip">Custom Frameworks</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>Frontend</h3>
+              <ul class="chips">
+                <li class="chip">Vue.js</li>
+                <li class="chip">Alpine.js</li>
+                <li class="chip">Tailwind CSS</li>
+                <li class="chip">jQuery</li>
+                <li class="chip">Bootstrap</li>
+                <li class="chip">Smarty</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>Infrastructure</h3>
+              <ul class="chips">
+                <li class="chip">Linux</li>
+                <li class="chip">Ubuntu</li>
+                <li class="chip">Debian</li>
+                <li class="chip">Apache</li>
+                <li class="chip">Nginx</li>
+                <li class="chip">Docker</li>
+                <li class="chip">AWS</li>
+                <li class="chip">GCP</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>Database</h3>
+              <ul class="chips">
+                <li class="chip">MySQL / MariaDB</li>
+                <li class="chip">SQL Server</li>
+                <li class="chip">PostgreSQL</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>Tools</h3>
+              <ul class="chips">
+                <li class="chip">Git / GitHub</li>
+                <li class="chip">Git Flow</li>
+                <li class="chip">Subversion</li>
+                <li class="chip">Redmine</li>
+                <li class="chip">Backlog</li>
+                <li class="chip">VSCode</li>
+                <li class="chip">Playwright</li>
+                <li class="chip">OpenAI / Codex</li>
+                <li class="chip">A5:SQL</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="band" id="work" aria-labelledby="work-title">
+        <div class="shell">
+          <div class="section-head">
+            <h2 id="work-title">Featured Work</h2>
+            <p>Representative systems involving backend design, infrastructure, operations, and legacy modernization.</p>
+          </div>
+          <div class="grid three">
+            <article class="card work-card">
+              <h3>Mechanical Parts Estimation &amp; Ordering System</h3>
+              <ul class="list">
+                <li>Full-stack development from requirement definition to operation</li>
+                <li>PM role with direct client communication</li>
+                <li>Infrastructure setup, backend, frontend, and maintenance</li>
+              </ul>
+            </article>
+            <article class="card work-card">
+              <h3>Jewelry Inventory Management System</h3>
+              <ul class="list">
+                <li>Migrated VBA-based legacy systems to web applications</li>
+                <li>Implemented SQL Server synchronization across mixed OS environments</li>
+                <li>Mentored team members using Docker-based development environments</li>
+              </ul>
+            </article>
+            <article class="card work-card">
+              <h3>Airport Management Systems</h3>
+              <ul class="list">
+                <li>Developed offline-compatible airport systems</li>
+                <li>Built flight information display interfaces</li>
+                <li>Learned and utilized GCP-based workflows</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="band paper" id="interests" aria-labelledby="interests-title">
+        <div class="shell">
+          <div class="section-head">
+            <h2 id="interests-title">Interests</h2>
+            <p>Areas I keep returning to when building, improving, and operating software.</p>
+          </div>
+          <ul class="chips">
+            <li class="chip">AI Assisted Coding</li>
+            <li class="chip">Backend Engineering</li>
+            <li class="chip">Automation</li>
+            <li class="chip">Legacy System Modernization</li>
+            <li class="chip">Developer Productivity</li>
+            <li class="chip">Performance Optimization</li>
+            <li class="chip">System Design</li>
+            <li class="chip">Developer Experience</li>
+          </ul>
+          <div class="philosophy" aria-label="Engineering philosophy">
+            <div class="principle">Production First</div>
+            <div class="principle">Keep It Maintainable</div>
+            <div class="principle">Automate Everything Possible</div>
+            <div class="principle">Measure Before Optimizing</div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="shell">
+        <span>ochreotter - Full Stack Engineer from Japan</span>
+      </div>
+    </footer>
+  </div>
+</body>
+
+</html>
